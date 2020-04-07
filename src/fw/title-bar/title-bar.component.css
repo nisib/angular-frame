@@ -1,11 +1,12 @@
-:host{
-    display:flex;
+:host {
+    display: flex;
 }
 
 .title-bar {
     flex-grow: 1;
     display: flex;
-    min-height: 80px;
+    min-height: 80px; 
+    background-color: #eee; 
 }
 
 .menu-area {
@@ -13,4 +14,54 @@
     flex-direction: column;
     flex-grow: 1;
     padding-right: 20px;
+}
+
+.title-bar-small {
+    flex-grow: 1;
+    display: flex;
+    min-height: 56px;
+}
+
+.small-image-holder {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.small-image {
+    height: 50px;
+    height: 40px;
+}
+
+
+/* span holds buttons */
+
+span {
+    margin-left: 10px;
+    margin-right: 20px;
+    font-size: 25px;
+    line-height: 50px;
+}
+
+
+/* font-awesome */
+i.fa {
+    margin-top: 10px;
+    /*color: #424242;
+    // color: #55596d;
+    // color: #83889e;
+    // color: #5e6172; */
+    
+}
+
+i.fa-bars {
+     font-size: 1.8em;
+    margin-left: 12px;
+    color: #424242;
+}
+
+i.fa-cog {
+    font-size: 1.4em;
+    margin-right: 12px;
+    color: #83889e;
 }
