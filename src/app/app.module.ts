@@ -11,6 +11,10 @@ import { appRoutes } from './app.routing';
 import { CountryMaintComponent } from './country-maint/country-maint.component';
 import { CountryDetailComponent } from './country-detail/country-detail.component';
 import { CountryListComponent } from './country-list/country-list.component';
+import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
+import { UserService } from './services/user.service';
+import { UserApi } from 'src/fw/users/user.api';
+import { AuthGuard } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { CountryListComponent } from './country-list/country-list.component';
     SettingsComponent,
     CountryMaintComponent,
     CountryDetailComponent,
-    CountryListComponent
+    CountryListComponent,
+    AuthenticatedUserComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,11 @@ import { CountryListComponent } from './country-list/country-list.component';
     FwModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    UserService,
+    {provide: UserApi, useExisting: UserService}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
