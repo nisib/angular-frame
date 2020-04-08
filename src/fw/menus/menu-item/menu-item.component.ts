@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, HostBinding, HostListener } from '@angular/core';
+import { Component, Input, OnInit, HostBinding,
+   HostListener, ElementRef, Renderer } from '@angular/core';
 import { MenuItem, MenuService } from 'src/fw/services/menu.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'fw-menu-item',
@@ -20,9 +21,44 @@ export class MenuItemComponent implements OnInit {
 
 
   constructor(private router: Router, 
-    private menuService: MenuService) { }
+    private menuService: MenuService,
+    private el: ElementRef,
+    private renderer: Renderer) { }
+
+
+  
+  checkActiveRoute(route: string) {
+    this.isActiveRoute = (route == '/' + this.item.route);
+  }  
 
   ngOnInit() {
+    this.checkActiveRoute(this.router.url);
+
+    this.router.events
+        .subscribe((event) => {
+          if(event instanceof NavigationEnd) {
+            this.checkActiveRoute(event.url);
+           // console.log(event.url + ' ' + this.item.route + ' '+this.isActiveRoute);
+          }
+        })
+  }
+
+  @HostListener('click',['$event'])
+  onClick(event) : void {
+    event.stopPropagation();
+
+    if(this.item.submenu) {
+      if(this.menuService.isVertical) {
+        this.mouseInPopup = !this.mouseInPopup;
+      }
+    } else if (this.item.route) {
+      //force horizontal menus to close by sending a mouseleave event
+      let newEvent=new MouseEvent('mouseleave', {bubbles:true});
+      this.renderer.invokeElementMethod(
+        this.el.nativeElement, 'dispatchEvent', [newEvent]);
+      
+      this.router.navigate(['/'+this.item.route]);  
+    }
   }
 
 
