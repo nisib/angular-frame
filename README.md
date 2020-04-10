@@ -1,6 +1,8 @@
 # GreenNations
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8. It is a simple responsive SPA framework with angular. 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8. It is a simple responsive SPA framework with angular. Then this application is containerized by docker and deployed in nginx server.
+
+A command line to dockerize and build the app continuously is: ng build --watch --delete-output-path false
 
 ## Development server
 
